@@ -99,6 +99,11 @@ Uses graph-based state management to persist the conversation context and learni
 |:------------------:|:-----------------------:|
 | ![Solution](docs/screenshots/demo_3_solution.png) | ![Result](docs/screenshots/demo_4_result.png) |
 
+### 🎬 Witness the Magic
+See the agent build a full snake game from scratch in under 30 seconds.
+
+[![Watch Demo](https://img.shields.io/badge/▶️_Watch_Demo-YouTube-red?style=for-the-badge&logo=youtube)](https://youtu.be/9x3v3XjQHbQ)
+
 ---
 
 ## ⚔️ Benchmarks & Performance
