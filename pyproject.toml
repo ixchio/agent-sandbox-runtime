@@ -1,6 +1,6 @@
 [project]
 name = "agent-sandbox-runtime"
-version = "0.1.0"
+version = "1.0.0"
 description = "Production-grade self-correcting AI agent platform with sandboxed execution"
 readme = "README.md"
 license = { text = "MIT" }

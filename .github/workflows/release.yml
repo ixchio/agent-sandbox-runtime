@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write  # Required for PyPI trusted publishing
 
     steps:
       - uses: actions/checkout@v4
@@ -32,6 +33,12 @@ jobs:
         with:
           files: dist/*
           generate_release_notes: true
+          body_path: CHANGELOG.md
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
 
       - name: Build Docker image
         run: |
