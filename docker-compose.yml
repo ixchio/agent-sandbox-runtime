@@ -1,0 +1,94 @@
+version: "3.9"
+
+services:
+  # ==========================================================================
+  # Agent Sandbox Runtime API
+  # ==========================================================================
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - LLM_PROVIDER=groq
+      - LLM_MODEL=llama-3.3-70b-versatile
+      - QDRANT_HOST=qdrant
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Docker-in-Docker for sandbox
+      - ./src:/app/src:ro
+    depends_on:
+      - qdrant
+      - redis
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  # ==========================================================================
+  # Qdrant Vector Database
+  # ==========================================================================
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  # ==========================================================================
+  # Redis (Caching & Job Queue)
+  # ==========================================================================
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  # ==========================================================================
+  # Sandbox Executor (Pre-warmed Python containers)
+  # ==========================================================================
+  sandbox-base:
+    build:
+      context: ./docker/sandbox
+      dockerfile: Dockerfile.sandbox
+    image: agent-sandbox-python:latest
+    profiles:
+      - build-only  # Only built, not run as service
+
+  # ==========================================================================
+  # Dashboard (Optional - for benchmark visualization)
+  # ==========================================================================
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - API_URL=http://api:8000
+    depends_on:
+      - api
+    networks:
+      - agent-network
+    profiles:
+      - dashboard
+
+networks:
+  agent-network:
+    driver: bridge
+
+volumes:
+  qdrant_data:
+  redis_data:

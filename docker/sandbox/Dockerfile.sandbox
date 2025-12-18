@@ -1,0 +1,33 @@
+# =============================================================================
+# Agent Sandbox Runtime - Sandbox Python Environment
+# =============================================================================
+# Minimal, secure Python environment for code execution
+
+FROM python:3.11-slim
+
+# Install common data science packages
+RUN pip install --no-cache-dir \
+    numpy \
+    pandas \
+    requests \
+    httpx \
+    beautifulsoup4 \
+    lxml \
+    pyyaml \
+    python-dateutil \
+    regex \
+    && rm -rf /root/.cache
+
+# Create restricted user
+RUN useradd --create-home --shell /bin/bash sandbox && \
+    mkdir -p /sandbox && \
+    chown sandbox:sandbox /sandbox
+
+# Set working directory
+WORKDIR /sandbox
+
+# Switch to non-root user
+USER sandbox
+
+# Default command
+CMD ["python3", "-c", "print('Sandbox ready')"]

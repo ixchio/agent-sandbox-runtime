@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+.r1 {color: #008080; text-decoration-color: #008080}
+.r2 {color: #008080; text-decoration-color: #008080; font-weight: bold}
+.r3 {color: #7f7f7f; text-decoration-color: #7f7f7f}
+.r4 {color: #808000; text-decoration-color: #808000; font-weight: bold}
+.r5 {color: #c0c0c0; text-decoration-color: #c0c0c0}
+.r6 {color: #800080; text-decoration-color: #800080}
+.r7 {color: #000080; text-decoration-color: #000080; font-weight: bold}
+.r8 {color: #000080; text-decoration-color: #000080}
+.r9 {color: #bfbf7f; text-decoration-color: #bfbf7f}
+.r10 {color: #800000; text-decoration-color: #800000; font-weight: bold}
+.r11 {color: #800000; text-decoration-color: #800000}
+.r12 {color: #7fbf7f; text-decoration-color: #7fbf7f}
+.r13 {color: #008000; text-decoration-color: #008000}
+.r14 {color: #008000; text-decoration-color: #008000; font-weight: bold}
+.r15 {font-style: italic}
+.r16 {font-weight: bold}
+.r17 {color: #800080; text-decoration-color: #800080; font-weight: bold}
+body {
+    color: #000000;
+    background-color: #ffffff;
+}
+</style>
+</head>
+<body>
+    <pre style="font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><code style="font-family:inherit">
+<span class="r1">╭───────────────────────────────╮</span>
+<span class="r1">│</span> <span class="r2">🚀 AGENT SANDBOX RUNTIME</span>      <span class="r1">│</span>
+<span class="r1">│</span> <span class="r3">Self-Correcting AI Code Agent</span> <span class="r1">│</span>
+<span class="r1">╰───────────────────────────────╯</span>
+
+<span class="r4">📝 Task:</span>
+<span class="r5">   &quot;Fetch data from https:</span><span class="r6">//</span><span class="r5">api.example.com</span><span class="r6">/</span><span class="r5">users&quot;</span>
+
+<span class="r7">⚡ Attempt </span><span class="r7">1</span><span class="r7">: Generating code...</span>
+<span class="r8">╭───────────────────────────────── Generated Code ──────────────────────────────────╮</span>
+<span class="r8">│</span> <span class="r1">import requests</span>                                                                   <span class="r8">│</span>
+<span class="r8">│</span> <span class="r1">response = requests.get(&quot;https://api.example.com/users&quot;)</span>                          <span class="r8">│</span>
+<span class="r8">│</span> <span class="r1">print(response.json())</span>                                                            <span class="r8">│</span>
+<span class="r8">╰───────────────────────────────────────────────────────────────────────────────────╯</span>
+<span class="r3">   Executing in Docker sandbox</span><span class="r9">...</span>
+
+<span class="r10">❌ ERROR:</span>
+<span class="r11">   ModuleNotFoundError: No module named </span><span class="r11">&#x27;requests&#x27;</span>
+
+<span class="r4">🔍 Critic analyzing...</span>
+<span class="r3">   </span><span class="r12">&quot;The &#x27;requests&#x27; library is not installed. Use &#x27;httpx&#x27; which is built-in.&quot;</span>
+
+<span class="r7">⚡ Attempt </span><span class="r7">2</span><span class="r7">: Generating fixed code...</span>
+<span class="r13">╭─────────────────────────────────── Fixed Code ────────────────────────────────────╮</span>
+<span class="r13">│</span> <span class="r13">import httpx</span>                                                                      <span class="r13">│</span>
+<span class="r13">│</span> <span class="r13">response = httpx.get(&quot;https://api.example.com/users&quot;)</span>                             <span class="r13">│</span>
+<span class="r13">│</span> <span class="r13">print(response.json())</span>                                                            <span class="r13">│</span>
+<span class="r13">╰───────────────────────────────────────────────────────────────────────────────────╯</span>
+<span class="r3">   Executing in Docker sandbox</span><span class="r9">...</span>
+
+<span class="r14">✅ SUCCESS!</span>
+<span class="r13">   </span><span class="r14">{</span><span class="r13">&quot;users&quot;</span><span class="r13">: </span><span class="r14">[{</span><span class="r13">&quot;id&quot;</span><span class="r13">: </span><span class="r14">1</span><span class="r13">, </span><span class="r13">&quot;name&quot;</span><span class="r13">: </span><span class="r13">&quot;Alice&quot;</span><span class="r14">}</span><span class="r13">, </span><span class="r14">{</span><span class="r13">&quot;id&quot;</span><span class="r13">: </span><span class="r14">2</span><span class="r13">, </span><span class="r13">&quot;name&quot;</span><span class="r13">: </span><span class="r13">&quot;Bob&quot;</span><span class="r14">}]}</span>
+
+<span class="r15">          🎉 Completed           </span>
+<span class="r13">┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓</span>
+<span class="r13">┃</span><span class="r16"> Metric           </span><span class="r13">┃</span><span class="r16"> Value      </span><span class="r13">┃</span>
+<span class="r13">┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩</span>
+<span class="r13">│</span><span class="r1"> Attempts         </span><span class="r13">│ 2          │</span>
+<span class="r13">│</span><span class="r1"> Self-Corrections </span><span class="r13">│ 1          │</span>
+<span class="r13">│</span><span class="r1"> Status           </span><span class="r13">│ ✅ Success │</span>
+<span class="r13">└──────────────────┴────────────┘</span>
+
+<span class="r17">The agent fixed its own bug automatically!</span>
+</code></pre>
+</body>
+</html>

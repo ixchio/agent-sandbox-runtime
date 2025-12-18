@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ultimate Benchmark - Agent Sandbox</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'SF Pro Display', -apple-system, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px;
+        }
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            margin-bottom: 40px;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .hero .subtitle { opacity: 0.8; font-size: 1.2rem; }
+        .hero .score {
+            font-size: 5rem;
+            font-weight: 800;
+            margin: 30px 0;
+        }
+        .hero .rating {
+            font-size: 1.5rem;
+            color: #ffd700;
+        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .card h3 { color: #667eea; margin-bottom: 16px; }
+        .stat { font-size: 2rem; font-weight: 700; }
+        .chart-box { height: 300px; }
+        table { width: 100%; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        th { color: #667eea; }
+        .pass { color: #4ade80; }
+        .fail { color: #f87171; }
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .badge-pass { background: rgba(74,222,128,0.2); color: #4ade80; }
+        .badge-fail { background: rgba(248,113,113,0.2); color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>🔥 ULTIMATE BENCHMARK</h1>
+        <p class="subtitle">Agent Sandbox Runtime - groq / llama-3.3-70b-versatile</p>
+        <div class="score">100%</div>
+        <div class="rating">🔥 GOD TIER</div>
+        <p style="margin-top: 20px; opacity: 0.7">12/12 tests passed in 11.1s</p>
+    </div>
+    
+    <div class="grid">
+        <div class="card">
+            <h3>📈 Success by Category</h3>
+            <div class="chart-box">
+                <canvas id="catChart"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <h3>⚡ Response Times</h3>
+            <div class="chart-box">
+                <canvas id="timeChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card" style="margin-top: 24px">
+        <h3>📋 All Results</h3>
+        <table>
+            <tr>
+                <th>Task</th>
+                <th>Status</th>
+                <th>Time</th>
+                <th>Lines</th>
+                <th>Confidence</th>
+            </tr>
+            
+            <tr>
+                <td>Calculate factorial of 10</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>787ms</td>
+                <td>14</td>
+                <td>99%</td>
+            </tr>
+            <tr>
+                <td>Check if 'racecar' is a palindrome</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>421ms</td>
+                <td>7</td>
+                <td>99%</td>
+            </tr>
+            <tr>
+                <td>Print fibonacci sequence up to 10 terms</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>922ms</td>
+                <td>10</td>
+                <td>95%</td>
+            </tr>
+            <tr>
+                <td>Find all prime numbers between 1 and 50</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>1298ms</td>
+                <td>18</td>
+                <td>95%</td>
+            </tr>
+            <tr>
+                <td>Sort a list using quicksort algorithm</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>725ms</td>
+                <td>17</td>
+                <td>95%</td>
+            </tr>
+            <tr>
+                <td>Implement binary search on sorted list [1,3,5,7,9,</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>1435ms</td>
+                <td>32</td>
+                <td>95%</td>
+            </tr>
+            <tr>
+                <td>Solve the Tower of Hanoi for 4 disks</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>1368ms</td>
+                <td>17</td>
+                <td>95%</td>
+            </tr>
+            <tr>
+                <td>Find longest common subsequence of 'ABCDGH' and 'A</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>950ms</td>
+                <td>33</td>
+                <td>95%</td>
+            </tr>
+            <tr>
+                <td>Implement a min-heap and insert [5,3,8,1,2]</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>848ms</td>
+                <td>27</td>
+                <td>95%</td>
+            </tr>
+            <tr>
+                <td>Generate all permutations of [1,2,3,4] without ite</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>498ms</td>
+                <td>21</td>
+                <td>95%</td>
+            </tr>
+            <tr>
+                <td>Solve 8-queens problem and print one solution</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>993ms</td>
+                <td>43</td>
+                <td>95%</td>
+            </tr>
+            <tr>
+                <td>Implement Dijkstra's shortest path for a 5-node gr</td>
+                <td><span class="badge badge-pass">PASS</span></td>
+                <td>800ms</td>
+                <td>40</td>
+                <td>95%</td>
+            </tr>
+        </table>
+    </div>
+    
+    <script>
+        new Chart(document.getElementById('catChart'), {
+            type: 'bar',
+            data: {
+                labels: ["\ud83d\udfe2 BASIC", "\ud83d\udfe1 INTERMEDIATE", "\ud83d\udd34 ADVANCED", "\ud83d\udc80 EXTREME"],
+                datasets: [{
+                    label: 'Success Rate',
+                    data: [100.0, 100.0, 100.0, 100.0],
+                    backgroundColor: ['#4ade80', '#facc15', '#f87171', '#a855f7'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { max: 100, grid: { color: 'rgba(255,255,255,0.1)' } } },
+                plugins: { legend: { display: false } }
+            }
+        });
+        
+        new Chart(document.getElementById('timeChart'), {
+            type: 'line',
+            data: {
+                labels: ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12"],
+                datasets: [{
+                    label: 'Response Time (ms)',
+                    data: [786.8201732635498, 420.69315910339355, 922.065258026123, 1297.5959777832031, 725.1796722412109, 1435.185194015503, 1367.530107498169, 950.3514766693115, 848.0322360992432, 498.3949661254883, 992.8536415100098, 799.5109558105469],
+                    borderColor: '#667eea',
+                    tension: 0.3,
+                    fill: true,
+                    backgroundColor: 'rgba(102,126,234,0.1)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { grid: { color: 'rgba(255,255,255,0.1)' } } },
+                plugins: { legend: { display: false } }
+            }
+        });
+    </script>
+    
+    <p style="text-align: center; margin-top: 40px; opacity: 0.5">
+        Generated 2025-12-18 23:01:27 | Agent Sandbox Runtime v0.1.0
+    </p>
+</body>
+</html>
