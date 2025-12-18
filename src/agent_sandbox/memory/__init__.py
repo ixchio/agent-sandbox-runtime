@@ -169,7 +169,7 @@ class EvolvingMemory:
             return base_prompt + "\n\n--- AGENT MEMORY ---\n" + "\n".join(enhancements)
         return base_prompt
 
-    def _extract_lesson(self, task: str, code: str, error: str) -> str:
+    def _extract_lesson(self, _task: str, _code: str, error: str) -> str:
         """Extract a lesson from failure."""
         error_lower = error.lower()
 
@@ -186,7 +186,7 @@ class EvolvingMemory:
 
         return f"Failed with: {error[:100]}"
 
-    def _extract_tags(self, task: str, code: str) -> list[str]:
+    def _extract_tags(self, task: str, _code: str) -> list[str]:
         """Extract semantic tags from task and code."""
         tags = []
 

@@ -203,9 +203,8 @@ class QuantumFluxEngine:
             elif u.bias == CognitiveBias.PRECISE:
                 if "typing" in u.code or "def" in u.code:
                     score += 0.2
-            elif u.bias == CognitiveBias.ROBUST:
-                if "try" in u.code and "except" in u.code:
-                    score += 0.3
+            elif u.bias == CognitiveBias.ROBUST and "try" in u.code and "except" in u.code:
+                score += 0.3
 
             u.survival_score = score
 
