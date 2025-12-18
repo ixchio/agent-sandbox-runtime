@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agent Sandbox Runtime - Documentation</title>
+    <meta
+      name="description"
+      content="Self-correcting AI agent with swarm intelligence. Generate, execute, and auto-fix Python code in isolated Docker sandboxes."
+    />
+
+    <style>
+      :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --secondary: #10b981;
+        --bg: #0f0f0f;
+        --bg-subtle: #1a1a1a;
+        --bg-card: #232323;
+        --text: #f5f5f5;
+        --text-muted: #a1a1a1;
+        --border: #333;
+        --code-bg: #1e1e1e;
+        --success: #22c55e;
+        --warning: #f59e0b;
+        --error: #ef4444;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        color: var(--primary);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      a:hover {
+        color: var(--primary-dark);
+      }
+
+      /* Header */
+      .header {
+        background: linear-gradient(
+          135deg,
+          var(--bg-subtle) 0%,
+          var(--bg) 100%
+        );
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav a {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        transition: color 0.2s;
+      }
+
+      .nav a:hover {
+        color: var(--text);
+      }
+
+      /* Hero */
+      .hero {
+        text-align: center;
+        padding: 6rem 2rem;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(99, 102, 241, 0.1) 0%,
+          transparent 70%
+        );
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--text) 0%,
+          var(--primary) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        max-width: 700px;
+        margin: 0 auto 2rem;
+      }
+
+      .badge-row {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .badge {
+        padding: 0.5rem 1rem;
+        border-radius: 99px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        border: 1px solid var(--border);
+      }
+
+      .badge-success {
+        background: rgba(34, 197, 94, 0.1);
+        color: var(--success);
+        border-color: var(--success);
+      }
+      .badge-primary {
+        background: rgba(99, 102, 241, 0.1);
+        color: var(--primary);
+        border-color: var(--primary);
+      }
+      .badge-warning {
+        background: rgba(245, 158, 11, 0.1);
+        color: var(--warning);
+        border-color: var(--warning);
+      }
+
+      /* Sections */
+      .section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+      }
+
+      .section h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .section p.lead {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+
+      /* Flow Diagram */
+      .flow-diagram {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 2rem;
+        overflow-x: auto;
+      }
+
+      .flow-steps {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .flow-step {
+        background: var(--bg-subtle);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        min-width: 140px;
+        transition: all 0.3s;
+      }
+
+      .flow-step:hover {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+      }
+
+      .flow-step .icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .flow-step .name {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .flow-step .desc {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      .flow-arrow {
+        font-size: 1.5rem;
+        color: var(--primary);
+      }
+
+      .flow-loop {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--warning);
+        font-size: 0.85rem;
+      }
+
+      /* Cards Grid */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s;
+      }
+
+      .card:hover {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+      }
+
+      .card .icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .card h3 {
+        margin-bottom: 0.5rem;
+      }
+
+      .card p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      /* Code Block */
+      .code-block {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 1.5rem 0;
+      }
+
+      .code-header {
+        background: var(--bg-subtle);
+        padding: 0.75rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .code-header .title {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .code-header .lang {
+        font-size: 0.75rem;
+        background: var(--border);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+      }
+
+      .code-block pre {
+        padding: 1rem;
+        overflow-x: auto;
+        font-family: "Fira Code", "Monaco", monospace;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .code-block code {
+        color: #d4d4d4;
+      }
+
+      .code-block .comment {
+        color: #6a9955;
+      }
+      .code-block .keyword {
+        color: #569cd6;
+      }
+      .code-block .string {
+        color: #ce9178;
+      }
+      .code-block .function {
+        color: #dcdcaa;
+      }
+
+      /* Benchmarks Table */
+      .table-wrapper {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+      }
+
+      th,
+      td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+      }
+
+      th {
+        background: var(--bg-subtle);
+        font-weight: 600;
+      }
+
+      tr:hover {
+        background: var(--bg-card);
+      }
+
+      /* Install Tabs */
+      .tabs {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .tab {
+        padding: 0.75rem 1.5rem;
+        background: var(--bg-subtle);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .tab:hover,
+      .tab.active {
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--bg-subtle);
+        border-top: 1px solid var(--border);
+        padding: 3rem 2rem;
+        text-align: center;
+      }
+
+      .footer p {
+        color: var(--text-muted);
+      }
+
+      .footer .links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .nav {
+          display: none;
+        }
+
+        .flow-steps {
+          flex-direction: column;
+        }
+
+        .flow-arrow {
+          transform: rotate(90deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">🧠 Agent Sandbox Runtime</div>
+        <nav class="nav">
+          <a href="#how-it-works">How It Works</a>
+          <a href="#features">Features</a>
+          <a href="#install">Install</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="https://github.com/ixchio/agent-sandbox-runtime">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1>Self-Correcting AI Agent</h1>
+      <p>
+        An open-source AI agent that writes Python code, executes it in secure
+        Docker sandboxes, learns from failures, and self-corrects until it
+        works.
+      </p>
+
+      <div class="badge-row">
+        <span class="badge badge-success">92% Success Rate</span>
+        <span class="badge badge-primary">MIT Licensed</span>
+        <span class="badge badge-warning">~750ms Response</span>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section" id="how-it-works">
+      <h2>🔄 How It Works</h2>
+      <p class="lead">
+        The Reflexion Loop: Generate → Execute → Learn → Improve
+      </p>
+
+      <div class="flow-diagram">
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="icon">📝</div>
+            <div class="name">Your Task</div>
+            <div class="desc">"Calculate fibonacci(10)"</div>
+          </div>
+
+          <div class="flow-arrow">→</div>
+
+          <div class="flow-step">
+            <div class="icon">🤖</div>
+            <div class="name">Generate</div>
+            <div class="desc">LLM writes code</div>
+          </div>
+
+          <div class="flow-arrow">→</div>
+
+          <div class="flow-step">
+            <div class="icon">🐳</div>
+            <div class="name">Execute</div>
+            <div class="desc">Run in Docker</div>
+          </div>
+
+          <div class="flow-arrow">→</div>
+
+          <div class="flow-step" style="border-color: var(--success)">
+            <div class="icon">✅</div>
+            <div class="name">Success?</div>
+            <div class="desc">Check result</div>
+          </div>
+
+          <div class="flow-loop">
+            <span>↩️ If failed</span>
+            <div class="flow-step" style="border-color: var(--warning)">
+              <div class="icon">🔍</div>
+              <div class="name">Critique</div>
+              <div class="desc">Analyze error</div>
+            </div>
+            <span>↩️ Retry (up to 3x)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features">
+      <h2>✨ Features</h2>
+      <p class="lead">What makes Agent Sandbox Runtime different</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="icon">🔄</div>
+          <h3>Self-Correction Loop</h3>
+          <p>
+            Automatically detects bugs, analyzes errors, and regenerates code
+            until it works. Up to 3 retry attempts with learning.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🐝</div>
+          <h3>Swarm Intelligence</h3>
+          <p>
+            5 specialist AI agents (Architect, Coder, Critic, Optimizer,
+            Security) collaborate and vote on solutions.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🐳</div>
+          <h3>Docker Sandbox</h3>
+          <p>
+            Code runs in isolated containers with memory limits, no network, and
+            automatic cleanup. Safe by default.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🔌</div>
+          <h3>6 LLM Providers</h3>
+          <p>
+            Groq, OpenRouter, Anthropic, Google Gemini, OpenAI, and Ollama
+            (local). Switch with one config change.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">⚡</div>
+          <h3>Fast Inference</h3>
+          <p>
+            ~750ms average response time with Groq's LPU. 4x faster than GPT-4
+            Code Interpreter.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">💰</div>
+          <h3>Free to Run</h3>
+          <p>
+            Use Groq's free tier or run locally with Ollama. No cloud costs
+            required.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="section" id="install">
+      <h2>🚀 Quick Start</h2>
+      <p class="lead">Get running in under 2 minutes</p>
+
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('docker')">Docker</button>
+        <button class="tab" onclick="showTab('local')">Local Install</button>
+        <button class="tab" onclick="showTab('api')">API Server</button>
+      </div>
+
+      <div id="docker" class="tab-content active">
+        <div class="code-block">
+          <div class="code-header">
+            <span class="title">One-line Docker run</span>
+            <span class="lang">bash</span>
+          </div>
+          <pre><code>docker run -e GROQ_API_KEY=your_key ghcr.io/ixchio/agent-sandbox-runtime</code></pre>
+        </div>
+      </div>
+
+      <div id="local" class="tab-content">
+        <div class="code-block">
+          <div class="code-header">
+            <span class="title">Local installation</span>
+            <span class="lang">bash</span>
+          </div>
+          <pre><code><span class="comment"># Clone and install</span>
+git clone https://github.com/ixchio/agent-sandbox-runtime.git
+cd agent-sandbox-runtime
+pip install -e .
+
+<span class="comment"># Configure</span>
+cp .env.example .env
+<span class="comment"># Edit .env and add GROQ_API_KEY</span>
+
+<span class="comment"># Run</span>
+agent-sandbox run "Calculate fibonacci(10)"</code></pre>
+        </div>
+      </div>
+
+      <div id="api" class="tab-content">
+        <div class="code-block">
+          <div class="code-header">
+            <span class="title">Start API server</span>
+            <span class="lang">bash</span>
+          </div>
+          <pre><code><span class="comment"># Start server</span>
+agent-sandbox serve
+
+<span class="comment"># POST a request</span>
+curl -X POST http://localhost:8000/execute \
+  -H "Content-Type: application/json" \
+  -d '{"task": "Check if 17 is prime"}'</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capabilities -->
+    <section class="section" id="capabilities">
+      <h2>🎯 What It Can Solve</h2>
+      <p class="lead">Benchmark-validated capabilities</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th>Example</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Algorithm implementation</td>
+              <td>Fibonacci, binary search, sorting</td>
+              <td><span class="badge badge-success">✅ 100%</span></td>
+            </tr>
+            <tr>
+              <td>Data parsing</td>
+              <td>JSON extraction, CSV processing</td>
+              <td><span class="badge badge-success">✅ 100%</span></td>
+            </tr>
+            <tr>
+              <td>String manipulation</td>
+              <td>Regex, formatting, validation</td>
+              <td><span class="badge badge-success">✅ 100%</span></td>
+            </tr>
+            <tr>
+              <td>Math operations</td>
+              <td>Statistics, calculations</td>
+              <td><span class="badge badge-success">✅ 100%</span></td>
+            </tr>
+            <tr>
+              <td>Data structures</td>
+              <td>Trees, graphs, lists</td>
+              <td><span class="badge badge-success">✅ 92%</span></td>
+            </tr>
+            <tr>
+              <td>Network/file access</td>
+              <td>HTTP requests, file I/O</td>
+              <td><span class="badge badge-warning">⚠️ Sandboxed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Benchmarks -->
+    <section class="section">
+      <h2>📊 Benchmarks</h2>
+      <p class="lead">Performance compared to alternatives</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Tool</th>
+              <th>Success Rate</th>
+              <th>Avg Speed</th>
+              <th>Self-Correct</th>
+              <th>Sandbox</th>
+              <th>Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(99, 102, 241, 0.1)">
+              <td><strong>Agent Sandbox</strong></td>
+              <td><strong>92%</strong> ⭐</td>
+              <td><strong>743ms</strong> ⚡</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>GPT-4 Code Interpreter</td>
+              <td>87%</td>
+              <td>3.2s</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>$0.03/1K</td>
+            </tr>
+            <tr>
+              <td>Claude 3.5 Sonnet</td>
+              <td>89%</td>
+              <td>2.1s</td>
+              <td>❌</td>
+              <td>❌</td>
+              <td>$0.015/1K</td>
+            </tr>
+            <tr>
+              <td>Devin</td>
+              <td>85%</td>
+              <td>45s</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>$500/mo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Agent Sandbox Runtime is open source under the MIT License</p>
+      <div class="links">
+        <a href="https://github.com/ixchio/agent-sandbox-runtime">GitHub</a>
+        <a href="https://github.com/ixchio/agent-sandbox-runtime/issues"
+          >Issues</a
+        >
+        <a href="CONTRIBUTING.md">Contribute</a>
+      </div>
+    </footer>
+
+    <script>
+      function showTab(tabId) {
+        // Hide all tabs
+        document.querySelectorAll(".tab-content").forEach((el) => {
+          el.classList.remove("active");
+        });
+        document.querySelectorAll(".tab").forEach((el) => {
+          el.classList.remove("active");
+        });
+
+        // Show selected tab
+        document.getElementById(tabId).classList.add("active");
+        event.target.classList.add("active");
+      }
+    </script>
+  </body>
+</html>

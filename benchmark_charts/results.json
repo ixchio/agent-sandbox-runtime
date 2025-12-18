@@ -1,0 +1,117 @@
+{
+  "timestamp": "2025-12-19T00:14:00.931550",
+  "provider": "groq",
+  "model": "llama-3.3-70b-versatile",
+  "results": [
+    {
+      "task": "Print Hello World",
+      "success": false,
+      "time_ms": 564.4867420196533,
+      "confidence": 0.99,
+      "lines": 1
+    },
+    {
+      "task": "Calculate 2+2",
+      "success": true,
+      "time_ms": 344.73657608032227,
+      "confidence": 0.99,
+      "lines": 2
+    },
+    {
+      "task": "Print first 5 fibonacci numbers",
+      "success": true,
+      "time_ms": 427.75678634643555,
+      "confidence": 0.99,
+      "lines": 9
+    },
+    {
+      "task": "Find all primes under 50",
+      "success": true,
+      "time_ms": 620.3014850616455,
+      "confidence": 0.95,
+      "lines": 18
+    },
+    {
+      "task": "Implement quicksort",
+      "success": true,
+      "time_ms": 625.9653568267822,
+      "confidence": 0.95,
+      "lines": 17
+    },
+    {
+      "task": "Binary search in [1,3,5,7,9,11]",
+      "success": true,
+      "time_ms": 897.4881172180176,
+      "confidence": 0.99,
+      "lines": 24
+    },
+    {
+      "task": "Tower of Hanoi for 4 disks",
+      "success": true,
+      "time_ms": 910.5579853057861,
+      "confidence": 0.95,
+      "lines": 17
+    },
+    {
+      "task": "LCS of ABCDGH and AEDFHR",
+      "success": true,
+      "time_ms": 1222.0978736877441,
+      "confidence": 0.85,
+      "lines": 21
+    },
+    {
+      "task": "Implement min-heap",
+      "success": true,
+      "time_ms": 931.4184188842773,
+      "confidence": 0.95,
+      "lines": 38
+    },
+    {
+      "task": "All permutations of [1,2,3,4]",
+      "success": true,
+      "time_ms": 404.7379493713379,
+      "confidence": 0.95,
+      "lines": 11
+    },
+    {
+      "task": "8-queens one solution",
+      "success": true,
+      "time_ms": 1051.8474578857422,
+      "confidence": 0.95,
+      "lines": 44
+    },
+    {
+      "task": "Dijkstra shortest path",
+      "success": true,
+      "time_ms": 786.9229316711426,
+      "confidence": 0.95,
+      "lines": 38
+    }
+  ],
+  "category_stats": {
+    "Basic": {
+      "passed": 2,
+      "total": 3,
+      "rate": 0.6666666666666666,
+      "avg_time": 445.6600348154704
+    },
+    "Intermediate": {
+      "passed": 3,
+      "total": 3,
+      "rate": 1.0,
+      "avg_time": 714.5849863688151
+    },
+    "Advanced": {
+      "passed": 3,
+      "total": 3,
+      "rate": 1.0,
+      "avg_time": 1021.3580926259359
+    },
+    "Extreme": {
+      "passed": 3,
+      "total": 3,
+      "rate": 1.0,
+      "avg_time": 747.8361129760742
+    }
+  }
+}
