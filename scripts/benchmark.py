@@ -7,7 +7,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
 async def main(suite: str, limit: int | None, output: str | None):
-    """Run benchmarks."""
+    """Run benchmrks."""
     from agent_sandbox.evaluation.runner import run_benchmarks
 
     print(f"Running benchmark suite: {suite}")
