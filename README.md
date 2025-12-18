@@ -32,7 +32,7 @@
 
 <!-- 🎥 ADD YOUR VIDEO HERE - Replace the link below with your YouTube/Loom video -->
 <!-- Option 1: YouTube thumbnail that links to video -->
-[![Watch Demo](https://img.shields.io/badge/▶️_Watch_Demo-YouTube-red?style=for-the-badge&logo=youtube)](https://youtube.com/watch?v=YOUR_VIDEO_ID)
+[![Watch Demo](https://img.shields.io/badge/▶️_Watch_Demo-YouTube-red?style=for-the-badge&logo=youtube)](https://youtu.be/9x3v3XjQHbQ)
 
 <!-- Option 2: If you record a GIF, uncomment and use this instead -->
 <!-- ![Demo GIF](docs/demos/demo.gif) -->
