@@ -4,7 +4,7 @@
 
 ### The Self-Correcting AI Agent with Swarm Intelligence
 
-*An open-source, production-grade AI agent platform that writes code, executes it safely, learns from failures, and self-corrects until it works.*
+*A secure runtime for self-correcting AI agents with Docker sandboxing.*
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/ixchio/agent-sandbox-runtime/actions/workflows/ci.yml/badge.svg)](https://github.com/ixchio/agent-sandbox-runtime/actions/workflows/ci.yml)
