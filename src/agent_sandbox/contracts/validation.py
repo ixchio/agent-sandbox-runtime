@@ -1,5 +1,3 @@
-"""Validation retry loop - forces valid structured output."""
-
 import json
 from typing import TypeVar
 
@@ -23,8 +21,6 @@ Return valid JSON matching the schema."""
 
 
 class ValidationRetryLoop:
-    """Retries LLM until output validates against schema."""
-
     def __init__(self, settings: Settings | None = None, max_retries: int = 3) -> None:
         self.settings = settings or get_settings()
         self._provider: LLMProvider | None = None
@@ -48,7 +44,6 @@ class ValidationRetryLoop:
         system_prompt: str,
         user_prompt: str,
     ) -> T:
-        """Validate response, retry with feedback if invalid."""
         current = response
         last_error: Exception | None = None
 

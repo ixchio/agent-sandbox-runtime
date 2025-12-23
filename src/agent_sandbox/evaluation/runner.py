@@ -177,13 +177,6 @@ class BenchmarkRunner:
         problem: BenchmarkProblem,
         result: dict[str, Any],
     ) -> bool:
-        """
-        Check if result matches expected output.
-
-        Supports:
-        - expected_output: Exact match
-        - expected_contains: List of substrings that must be present
-        """
         if not result.get("success"):
             return False
 

@@ -8,7 +8,7 @@ from agent_sandbox.providers.base import LLMProvider, ProviderConfig
 
 log = structlog.get_logger()
 
-ProviderType = Literal["groq", "openrouter", "anthropic", "google", "ollama", "openai"]
+ProviderType = Literal["groq", "openrouter", "anthropic", "google", "ollama", "openai", "cerebras"]
 
 DEFAULTS = {
     "groq": "llama-3.3-70b-versatile",
@@ -17,6 +17,7 @@ DEFAULTS = {
     "google": "gemini-1.5-flash",
     "ollama": "qwen2.5-coder:7b",
     "openai": "gpt-4o-mini",
+    "cerebras": "llama-3.3-70b",
 }
 
 
@@ -42,6 +43,8 @@ def create_provider(
         from agent_sandbox.providers.ollama import OllamaProvider as Cls
     elif provider_type == "openai":
         from agent_sandbox.providers.openai import OpenAIProvider as Cls
+    elif provider_type == "cerebras":
+        from agent_sandbox.providers.cerebras import CerebrasProvider as Cls
     else:
         raise ValueError(f"Unknown provider: {provider_type}")
 

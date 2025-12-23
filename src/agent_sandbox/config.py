@@ -6,7 +6,7 @@ from typing import Literal
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-ProviderType = Literal["groq", "openrouter", "anthropic", "google", "ollama", "openai"]
+ProviderType = Literal["groq", "openrouter", "anthropic", "google", "ollama", "openai", "cerebras"]
 
 
 class Settings(BaseSettings):
@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     anthropic_api_key: SecretStr | None = None
     google_api_key: SecretStr | None = None
     openai_api_key: SecretStr | None = None
+    cerebras_api_key: SecretStr | None = None
 
     # Models
     groq_model: str = "llama-3.3-70b-versatile"
@@ -36,6 +37,7 @@ class Settings(BaseSettings):
     google_model: str = "gemini-1.5-flash"
     ollama_model: str = "qwen2.5-coder:7b"
     openai_model: str = "gpt-4o-mini"
+    cerebras_model: str = "llama-3.3-70b"
     ollama_base_url: str = "http://localhost:11434"
 
     # Sandbox
@@ -74,6 +76,7 @@ class Settings(BaseSettings):
             "google": self.google_api_key,
             "ollama": None,
             "openai": self.openai_api_key,
+            "cerebras": self.cerebras_api_key,
         }
         key = keys.get(self.llm_provider)
         if key is None and self.llm_provider != "ollama":
@@ -89,6 +92,7 @@ class Settings(BaseSettings):
             "google": self.google_model,
             "ollama": self.ollama_model,
             "openai": self.openai_model,
+            "cerebras": self.cerebras_model,
         }
         return models.get(self.llm_provider, "")
 

@@ -36,6 +36,7 @@ dependencies = [
     "openai>=1.50.0",
     "anthropic>=0.39.0",
     "google-generativeai>=0.8.0",
+    "cerebras-cloud-sdk>=1.0.0",
 
     # Agent Orchestration
     "langchain>=0.3.0",
@@ -127,7 +128,8 @@ asyncio_mode = "auto"
 testpaths = ["tests"]
 addopts = "-v --tb=short"
 markers = [
-    "slow: marks tests as slow",
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "integration: marks integration tests",
     "e2e: marks end-to-end tests",
+    "demo: marks viral demo tests for OBS recording",
 ]

@@ -132,7 +132,9 @@ def create_agent_graph(
 
     logger.info("Agent graph created")
 
-    return workflow.compile()
+    return workflow.compile(
+        checkpointer=None,  # No checkpointing needed
+    )
 
 
 async def finalize_result(state: GraphState) -> GraphState:
@@ -258,6 +260,6 @@ class AgentGraph:
 
         logger.info("Starting streaming agent workflow", task=task[:100])
 
-        # Stream updates
-        async for event in self.graph.astream(initial_state):
+        # Stream updates with increased recursion limit for retry loops
+        async for event in self.graph.astream(initial_state, config={"recursion_limit": 100}):
             yield event

@@ -151,6 +151,9 @@ class SandboxManager:
                 f.write(request.code)
                 code_path = Path(f.name)
 
+            # Make file world-readable for container's restricted user
+            code_path.chmod(0o644)
+
             # Build the execution command
             self._build_command(request)
 
@@ -207,9 +210,9 @@ class SandboxManager:
                 full_output = str(logs)
 
             # Separate stdout and stderr
-            # Docker combines them, so we parse based on exit code
+            # Docker combines them - always capture in stdout for visibility
+            result.stdout = full_output
             if result.exit_code == 0 and not result.timed_out:
-                result.stdout = full_output
                 result.status = ExecutionStatus.SUCCESS
             else:
                 result.stderr = full_output

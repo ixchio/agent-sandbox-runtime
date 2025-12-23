@@ -1,23 +1,3 @@
-"""
-Benchmark Problems
-==================
-
-Collection of coding problems for evaluating agent performance.
-
-Categories:
-1. Basic Algorithms - Classic CS problems
-2. Error Recovery - Problems with common pitfalls
-3. Dependency Management - Package import scenarios
-4. Edge Cases - Tricky scenarios
-
-Each problem has:
-- task: Description for the agent
-- test_code: Python code to verify the result
-- expected_output: Expected stdout (partial match)
-- difficulty: easy, medium, hard
-- category: Problem category
-"""
-
 from typing import Literal
 
 from pydantic import BaseModel, Field
@@ -35,12 +15,6 @@ class BenchmarkProblem(BaseModel):
     difficulty: Literal["easy", "medium", "hard"] = "medium"
     category: str = "general"
     timeout_seconds: float = 5.0
-
-
-# =============================================================================
-# BASIC ALGORITHM PROBLEMS
-# =============================================================================
-
 BASIC_ALGORITHMS = [
     BenchmarkProblem(
         id="fib-001",
